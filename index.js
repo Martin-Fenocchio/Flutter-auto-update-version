@@ -1,8 +1,8 @@
 const YAML = require("yaml");
 const fs = require("fs");
+require("dotenv").config();
 
-const filePath =
-  "/Users/martinfenocchio/Documents/GitHub/flutter-gorilla-hash/pubspec.yaml";
+const filePath = process.env.pubspecPath;
 const file = YAML.parse(fs.readFileSync(filePath, "utf8"));
 
 const appVersionStringify = file.version;
