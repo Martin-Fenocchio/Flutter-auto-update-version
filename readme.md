@@ -22,4 +22,4 @@
 
 The main utility use for this script is in a git hook, in my case, in a pre-commit hook. To set this up, you can follow the instructions in this blog post, written by me. 
 
-https://medium.com/@martin_feno
+https://medium.com/@martin_feno/how-to-update-the-number-version-automatically-in-a-flutter-app-265ed5e3eee4
