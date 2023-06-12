@@ -7,29 +7,27 @@ const filePath = process.env.pubspecPath;
 
 const file = YAML.parse(fs.readFileSync(filePath, "utf8"));
 
-const appVersionStringify = file.version;
+const segments = file.version.split(".");
 
-const lastNumberIndex = appVersionStringify.indexOf("+");
-const appVersionNow = appVersionStringify
-  .substring(4, lastNumberIndex)
-  .replaceAll(".", "");
+const lastSegment = segments[segments.length - 1].split("+");
 
-const newVersion = parseInt(appVersionNow) + 1;
+lastSegment[0] = (parseInt(lastSegment[0]) + 1).toString();
 
-file.version = appVersionStringify.replace(appVersionNow, newVersion);
+segments[segments.length - 1] = lastSegment.join("+");
+
+file.version = segments.join(".");
 
 fs.writeFile(filePath, YAML.stringify(file), (err) => {});
 
 notifier.notify(
   {
-    title: "Nueva version!",
-    message: "La nueva version es la " + newVersion.toString(),
+    title: "New version!",
+    message: "The number of the new version is: " + lastSegment[0].toString(),
   },
   (err, response, metadata) => {
     if (err) {
       console.error(err);
       return;
     }
-    console.log("Notificación enviada:", response, metadata);
   }
 );
